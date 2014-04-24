@@ -1,7 +1,7 @@
 @import "helpers";
 @import "fonts/clear-sans.css";
 
-$field-width: 500px;
+$field-width: 50px;
 $grid-spacing: 15px;
 $grid-row-cells: 4;
 $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
@@ -44,6 +44,10 @@ h1.title {
   margin: 0;
   display: block;
   float: left;
+}
+
+.container {
+	margin: 25px 20px;
 }
 
 @include keyframes(move-up) {
@@ -139,10 +143,6 @@ hr {
   margin-bottom: 30px;
 }
 
-.container {
-  width: $field-width;
-  margin: 0 auto;
-}
 
 @include keyframes(fade-in) {
   0% {
@@ -492,11 +492,6 @@ hr {
   h1.title {
     font-size: 27px;
     margin-top: 15px;
-  }
-
-  .container {
-    width: $field-width;
-    margin: 0 auto;
   }
 
   .score-container, .best-container {

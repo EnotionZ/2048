@@ -18,13 +18,14 @@
 var debugmode = false;
 
 var states = Object.freeze({
-   SplashScreen: 0,
-   GameScreen: 1,
-   ScoreScreen: 2
+	SplashScreen: 0,
+	GameScreen: 1,
+	ScoreScreen: 2
 });
 
 var currentstate;
 
+var flyArea = $('#flyarea').height();
 var gravity = 0.25;
 var velocity = 0;
 var position = 180;
@@ -465,9 +466,9 @@ function updatePipes()
    
    //add a new pipe (top height + bottom height  + pipeheight == 420) and put it in our tracker
    var padding = 80;
-   var constraint = 420 - pipeheight - (padding * 2); //double padding (for top and bottom)
+   var constraint = flyArea - pipeheight - (padding * 2); //double padding (for top and bottom)
    var topheight = Math.floor((Math.random()*constraint) + padding); //add lower padding
-   var bottomheight = (420 - pipeheight) - topheight;
+   var bottomheight = (flyArea - pipeheight) - topheight;
    var newpipe = $('<div class="pipe animated"><div class="pipe_upper" style="height: ' + topheight + 'px;"></div><div class="pipe_lower" style="height: ' + bottomheight + 'px;"></div></div>');
    $("#flyarea").append(newpipe);
    pipes.push(newpipe);

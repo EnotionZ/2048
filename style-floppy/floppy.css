@@ -167,7 +167,7 @@ Screen - Game
 {
    position: absolute;
    bottom: 0;
-   height: 420px;
+   height: 80%;
    width: 100%;
 }
 
@@ -322,6 +322,7 @@ Screen - Game
 .pipe
 {
    position: absolute;
+   top: 0;
    left: -100px;
    width: 52px;
    height: 100%;

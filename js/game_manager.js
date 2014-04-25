@@ -77,6 +77,8 @@ GameManager.prototype.addRandomTile = function () {
   }
 };
 
+GameManager.prototype.onOver = function(){};
+
 // Sends the updated grid to the actuator
 GameManager.prototype.actuate = function () {
   if (this.storageManager.getBestScore() < this.score) {
@@ -86,6 +88,7 @@ GameManager.prototype.actuate = function () {
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
     this.storageManager.clearGameState();
+    this.onOver();
   } else {
     this.storageManager.setGameState(this.serialize());
   }

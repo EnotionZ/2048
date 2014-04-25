@@ -1,4 +1,4 @@
-/*global floppy,manager*/
+/*global floppy,manager,GameManager*/
 var floppy2048 = (function() {
 	var opts = {
 		start_lives: 3,
@@ -51,7 +51,7 @@ var floppy2048 = (function() {
 	function updateLives() { $lives.text(states.lives); }
 
 	function removeLife() {
-		if(--states.lives === 0) {
+		if(--states.lives < 1) {
 			floppy.playerDead();
 		} else {
 			floppy.soundHit.play();
@@ -69,6 +69,11 @@ var floppy2048 = (function() {
 		floppy.replay();
 	}
 
+	// when game manager signals a gameover
+	GameManager.prototype.onOver = function() {
+		states.lives = 1;
+		removeLife();
+	};
 
 	floppy.on('collide', throttle(removeLife, 1000, {trailing: false}));
 

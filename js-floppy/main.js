@@ -45,19 +45,19 @@ var floppy = (function(){
 	var velocity = 0;
 	var position = 180;
 	var rotation = 0;
-	var jump = -4.6;
+	var jump = -6;
 
 	var score = 0;
-
-	// variance in pipe opening
-	var pipeVariance = 15;
 
 	var modes = {
 		easy: 320,
 		normal: 220,
-		hard: 160
+		hard: 190
 	};
-	var pipeheight = modes.normal;
+
+	var pipeheight = modes.normal; // space between pipe opening
+	var pipeVariance = 15;         // variance in pipe opening
+	var pipeLoopTimer = 2000;      // timer it takes to generate another pipe
 	var pipewidth = 52;
 	var pipes = [];
 
@@ -122,7 +122,7 @@ var floppy = (function(){
 		//start up our loops
 		var updaterate = 1000.0 / 60.0 ; //60 times a second
 		loopGameloop = setInterval(gameloop, updaterate);
-		loopPipeloop = setInterval(updatePipes, 1400);
+		loopPipeloop = setInterval(updatePipes, pipeLoopTimer);
 
 		//jump from the start!
 		playerJump();
@@ -300,7 +300,7 @@ var floppy = (function(){
 	}
 
 	function addPipe() {
-		//add a new pipe (top height + bottom height  + pipeheight == 420) and put it in our tracker
+		//add a new pipe (top height + bottom height  + pipeheight == flyArea) and put it in our tracker
 		var padding = pipeVariance;
 		var constraint = flyArea - pipeheight - (padding * 2); //double padding (for top and bottom)
 		var topheight = Math.floor((Math.random()*constraint) + padding); //add lower padding

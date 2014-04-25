@@ -1,8 +1,8 @@
 @import "helpers";
 @import "fonts/clear-sans.css";
 
-$field-width: 160px;
-$grid-spacing: 5px;
+$field-width: 120px;
+$grid-spacing: 2px;
 $grid-row-cells: 4;
 $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
 $tile-border-radius: 3px;
@@ -12,9 +12,9 @@ $mobile-threshold: $field-width + 20px;
 $text-color: #776E65;
 $bright-text-color: #f9f6f2;
 
-$tile-font-size: 22px;
-$tile-font-size-3: 17px;
-$tile-font-size-4: 12px;
+$tile-font-size: 20px;
+$tile-font-size-3: 16px;
+$tile-font-size-4: 11px;
 
 $tile-color: #eee4da;
 $tile-gold-color: #edc22e;

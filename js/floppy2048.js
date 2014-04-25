@@ -61,6 +61,7 @@ var floppy2048 = (function() {
 
 	function newGame() {
 		if(states.lives === opts.start_lives) return;
+		if(floppy.isPlaying()) floppy.playerDead(true);
 		states.lives = opts.start_lives;
 		updateLives();
 		manager.restart();

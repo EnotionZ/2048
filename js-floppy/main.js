@@ -236,7 +236,7 @@ var floppy = (function(){
 
 
 
-	function playerDead() {
+	function playerDead(disableScore) {
 		//stop animating everything!
 		$(".animated").css('animation-play-state', 'paused');
 		$(".animated").css('-webkit-animation-play-state', 'paused');
@@ -258,12 +258,12 @@ var floppy = (function(){
 
 		//mobile browsers don't support buzz bindOnce event
 		if(isIncompatible.any()) {
-			showScore(); //skip right to showing score
+			if(!disableScore) showScore(); //skip right to showing score
 		} else {
 			//play the hit sound (then the dead sound) and then show score
 			soundHit.play().bindOnce("ended", function() {
 				soundDie.play().bindOnce("ended", function() {
-					showScore();
+					if(!disableScore) showScore();
 				});
 			});
 		}

@@ -68,7 +68,7 @@ h1.title {
   text-align: right;
 }
 
-.score-container, .best-container {
+.lives-container, .score-container, .best-container {
   $height: 25px;
 
   position: relative;
@@ -111,13 +111,9 @@ h1.title {
   }
 }
 
-.score-container:after {
-  content: "Score";
-}
-
-.best-container:after {
-  content: "Best"
-}
+.score-container:after { content: "Score"; }
+.best-container:after { content: "Best"; }
+.lives-container:after { content: "Lives"; }
 
 p {
   margin-top: 0;

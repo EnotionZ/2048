@@ -24,10 +24,11 @@ var floppy = (function(){
 	var $player = $('#player');
 	var $flyArea = $('#flyarea');
 	var $scoreboard = $('#scoreboard');
-	var $replay = $('#replay');
 	var $splash = $("#splash");
 	var $land = $('#land');
 	var $ceiling = $('#ceiling');
+
+	var landTop = $land.offset().top;
 
 	var debugmode = false;
 
@@ -52,7 +53,6 @@ var floppy = (function(){
 	var pipewidth = 52;
 	var pipes = [];
 
-	var replayclickable = false;
 
 	//sounds
 	var volume = 30;
@@ -160,7 +160,7 @@ var floppy = (function(){
 		}
 
 		//did we hit the ground?
-		if(box.bottom >= $land.offset().top) return $pub.trigger('collide');
+		if(box.bottom >= landTop) return $pub.trigger('collide');
 
 		//have they tried to escape through the ceiling? :o
 		if(boxtop <= ($ceiling.offset().top + $ceiling.height())) position = 0;
@@ -210,11 +210,8 @@ var floppy = (function(){
 
 	//Handle space bar
 	$(document).keydown(function(e){
-		//space bar!
-		if(e.keyCode === 32) {
-			//in ScoreScreen, hitting space should click the "replay" button. else it's just a regular spacebar hit
-			if(currentstate === states.ScoreScreen) $replay.click();
-			else screenClick();
+		if(e.keyCode === 32) { //space bar!
+			if(currentstate !== states.ScoreScreen) screenClick();
 		}
 	});
 
@@ -268,24 +265,13 @@ var floppy = (function(){
 	}
 
 	function showScore() {
-		$scoreboard.css("display", "block");
-
 		//SWOOSH!
 		soundSwoosh.stop();
 		soundSwoosh.play();
 
 		//show the scoreboard
-		$scoreboard.css({ y: '40px', opacity: 0 }); //move it down so we can slide it up
-		$replay.css({ y: '40px', opacity: 0 });
-		$scoreboard.transition({ y: '0px', opacity: 1}, 600, 'ease', function() {
-			//When the animation is done, animate in the replay button and SWOOSH!
-			soundSwoosh.stop();
-			soundSwoosh.play();
-			$replay.transition({ y: '0px', opacity: 1}, 600, 'ease');
-		});
-
-		//make the replay button clickable
-		replayclickable = true;
+		$scoreboard.css({ display: 'block', y: '40px', opacity: 0 });
+		$scoreboard.transition({ y: '0px', opacity: 1}, 600, 'ease');
 	}
 
 	function replay() {
@@ -302,13 +288,6 @@ var floppy = (function(){
 			showSplash();
 		});
 	}
-
-	$replay.click(function() {
-		//make sure we can only click once
-		if(!replayclickable) return;
-		else replayclickable = false;
-		replay();
-	});
 
 	function playerScore() {
 		score += 1;
@@ -349,6 +328,8 @@ var floppy = (function(){
 	pub.screenClick = screenClick;
 	pub.replay = replay;
 	pub.on = $pub.on.bind($pub);
+	pub.soundHit = soundHit;
+	pub.soundDie = soundDie;
 
 	return pub;
 })();

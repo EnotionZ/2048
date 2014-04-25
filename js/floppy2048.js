@@ -1,14 +1,15 @@
-/*global floppy*/
+/*global floppy,manager*/
 var floppy2048 = (function() {
 	var opts = {
 		start_lives: 3
 	};
 
 	var states = {
-		lives: 3
+		lives: opts.start_lives
 	};
 
 	var $document = $(document);
+	var $lives = $('.lives-container');
 
 
 	function _now() { return new Date().getTime(); }
@@ -46,14 +47,23 @@ var floppy2048 = (function() {
 		floppy.screenClick();
 	}
 
+	function updateLives() { $lives.text(states.lives); }
+
 	function removeLife() {
 		if(--states.lives === 0) {
 			floppy.playerDead();
+		} else {
+			floppy.soundHit.play();
 		}
+		updateLives();
 	}
 
 	function newGame() {
+		if(states.lives === opts.start_lives) return;
 		states.lives = opts.start_lives;
+		updateLives();
+		manager.restart();
+		floppy.replay();
 	}
 
 
@@ -63,6 +73,8 @@ var floppy2048 = (function() {
 	//Handle mouse down OR touch start
 	var clickEventStr = "ontouchstart" in window ? 'touchstart' : 'mousedown';
 	$document.on(clickEventStr, screenClick);
+
+	$('.restart-button').on('click', newGame);
 
 	return {
 		newGame: newGame

@@ -44,6 +44,7 @@
 			<div class="heading">
 				<h1 class="title">Floppy 2048</h1>
 				<div class="scores-container">
+					<div class="lives-container">0</div>
 					<div class="score-container">0</div>
 					<div class="best-container">0</div>
 				</div>
@@ -65,10 +66,8 @@
 
     <div id="player" class="bird animated game-container">
       <div class="game-message">
-        <p></p>
         <div class="lower">
 	        <a class="keep-playing-button">Keep going</a>
-          <a class="retry-button">Try again</a>
         </div>
       </div>
 
@@ -110,21 +109,15 @@
 
                   <div id="splash"></div>
 
-                  <div id="scoreboard">
-                     <div id="replay"><img src="assets/replay.png" alt="replay"></div>
-                  </div>
+                  <div id="scoreboard"></div>
 
                   <!-- Pipes go here! -->
                </div>
             </div>
 			<div id="land" class="animated">
 				<div class="container">
-
-					<p class="game-explanation">
-					<strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
-					</p>
 					<p>
-					<a href="http://git.io/2048">2048</a> Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
+					Created by <a href="http://dph.am">Dominick Pham</a>, based on code from <a href="http://git.io/2048">2048</a> and <a href="http://nebez.github.io/floppybird/">Floppy Bird</a>
 					</p>
 				</div>
 				<div id="debug"></div>

@@ -49,12 +49,15 @@ var floppy = (function(){
 
 	var score = 0;
 
+	// variance in pipe opening
+	var pipeVariance = 15;
+
 	var modes = {
 		easy: 320,
-		normal: 250,
-		hard: 180
+		normal: 220,
+		hard: 160
 	};
-	var pipeheight = 250;
+	var pipeheight = modes.normal;
 	var pipewidth = 52;
 	var pipes = [];
 
@@ -73,12 +76,8 @@ var floppy = (function(){
 	var loopPipeloop;
 
 	$(document).ready(function() {
-
 		if(window.location.search === "?debug") debugmode = true;
-		if(window.location.search === "?easy") pipeheight = 300;
-
-		//start with the splash screen
-		showSplash();
+		showSplash(); //start with the splash screen
 	});
 
 
@@ -302,7 +301,7 @@ var floppy = (function(){
 
 	function addPipe() {
 		//add a new pipe (top height + bottom height  + pipeheight == 420) and put it in our tracker
-		var padding = 80;
+		var padding = pipeVariance;
 		var constraint = flyArea - pipeheight - (padding * 2); //double padding (for top and bottom)
 		var topheight = Math.floor((Math.random()*constraint) + padding); //add lower padding
 		var bottomheight = (flyArea - pipeheight) - topheight;

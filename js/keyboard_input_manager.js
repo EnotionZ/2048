@@ -51,6 +51,10 @@ KeyboardInputManager.prototype.listen = function () {
 
   // Respond to direction keys
   document.addEventListener("keydown", function (event) {
+
+	  // don't let users control tile when bird isn't flapping
+  	  if(!window.floppy.isPlaying()) return;
+
     var modifiers = event.altKey || event.ctrlKey || event.metaKey ||
                     event.shiftKey;
     var mapped    = map[event.which];

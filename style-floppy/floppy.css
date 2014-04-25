@@ -226,7 +226,12 @@ Screen - Game
    background-repeat: no-repeat;
 
    z-index: 1000;
+   padding-top: 65px;
+   text-align: center;
 }
+#scoreboard button {
+}
+
 
 #medal
 {

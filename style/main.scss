@@ -111,6 +111,10 @@ h1.title {
   }
 }
 
+.lives-container {
+  background: #888;
+}
+
 .score-container:after { content: "Score"; }
 .best-container:after { content: "Best"; }
 .lives-container:after { content: "Lives"; }

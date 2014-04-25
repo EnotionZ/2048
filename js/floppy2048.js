@@ -77,6 +77,13 @@ var floppy2048 = (function() {
 	$document.on(clickEventStr, screenClick);
 
 	$('.restart-button').on('click', newGame);
+	$('#scoreboard button').on('click', function(e) {
+		var mode = $(e.currentTarget).data('mode');
+		opts.mode = mode;
+		newGame();
+	});
+
+	updateLives();
 
 	return {
 		newGame: newGame

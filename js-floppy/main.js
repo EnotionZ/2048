@@ -331,6 +331,7 @@ var floppy = (function(){
 	};
 
 
+	pub.isPlaying = function() { return currentstate === states.GameScreen; };
 	pub.playerDead = playerDead;
 	pub.screenClick = screenClick;
 	pub.replay = replay;

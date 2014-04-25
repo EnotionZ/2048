@@ -1,3 +1,4 @@
+/*global buzz*/
 /*
    Copyright 2014 Nebez Briefkani
    floppybird - main.js
@@ -18,13 +19,15 @@ var floppy = (function(){
 	var pub = {};
 	var $pub = $(pub);
 
+	var $playerBoundingBox = $('#playerbox');
+	var $pipeBoundingBox = $('#pipebox');
 	var $player = $('#player');
 	var $flyArea = $('#flyarea');
 	var $scoreboard = $('#scoreboard');
 	var $replay = $('#replay');
-	var $medal = $('#medal');
 	var $splash = $("#splash");
-
+	var $land = $('#land');
+	var $ceiling = $('#ceiling');
 
 	var debugmode = false;
 
@@ -44,7 +47,6 @@ var floppy = (function(){
 	var jump = -4.6;
 
 	var score = 0;
-	var highscore = 0;
 
 	var pipeheight = 200;
 	var pipewidth = 52;
@@ -70,30 +72,10 @@ var floppy = (function(){
 		if(window.location.search === "?debug") debugmode = true;
 		if(window.location.search === "?easy") pipeheight = 300;
 
-		//get the highscore
-		var savedscore = getCookie("highscore");
-		if(savedscore !== "") highscore = parseInt(savedscore);
-
 		//start with the splash screen
 		showSplash();
 	});
 
-	function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i].trim();
-			if(c.indexOf(name)===0) return c.substring(name.length,c.length);
-		}
-		return '';
-	}
-
-	function setCookie(cname,cvalue,exdays) {
-		var d = new Date();
-		d.setTime(d.getTime()+(exdays*24*60*60*1000));
-		var expires = "expires="+d.toGMTString();
-		document.cookie = cname + "=" + cvalue + "; " + expires;
-	}
 
 	function showSplash() {
 		currentstate = states.SplashScreen;
@@ -113,7 +95,7 @@ var floppy = (function(){
 
 		//clear out all the pipes if there are any
 		$(".pipe").remove();
-		pipes = new Array();
+		pipes = [];
 
 		//make everything animated again
 		$(".animated").css({
@@ -126,114 +108,104 @@ var floppy = (function(){
 	}
 
 	function startGame() {
-	   currentstate = states.GameScreen;
+		currentstate = states.GameScreen;
 
-	   //fade out the splash
-	   $splash.stop().transition({ opacity: 0 }, 500, 'ease');
+		//fade out the splash
+		$splash.stop().transition({ opacity: 0 }, 500, 'ease');
 
-	   if(debugmode) $(".boundingbox").show();
+		if(debugmode) $(".boundingbox").show();
 
-	   //start up our loops
-	   var updaterate = 1000.0 / 60.0 ; //60 times a second
-	   loopGameloop = setInterval(gameloop, updaterate);
-	   loopPipeloop = setInterval(updatePipes, 1400);
+		//start up our loops
+		var updaterate = 1000.0 / 60.0 ; //60 times a second
+		loopGameloop = setInterval(gameloop, updaterate);
+		loopPipeloop = setInterval(updatePipes, 1400);
 
-	   //jump from the start!
-	   playerJump();
+		//jump from the start!
+		playerJump();
 	}
 
 	function updatePlayer(player) {
-	   //rotation
-	   rotation = Math.min((velocity / 10) * 90, 90);
-
-	   //apply rotation and position
-	   $player.css({ rotate: rotation, top: position });
+		rotation = Math.min((velocity / 10) * 90, 90);
+		$player.css({ rotate: rotation, top: position });
 	}
 
 	function gameloop() {
-	   //update the player speed/position
-	   velocity += gravity;
-	   position += velocity;
+		//update the player speed/position
+		velocity += gravity;
+		position += velocity;
 
-	   //update the player
-	   updatePlayer($player);
+		//update the player
+		updatePlayer($player);
 
-	   //create the bounding box
-	   var box = document.getElementById('player').getBoundingClientRect();
-	   var origwidth = 34.0;
-	   var origheight = 24.0;
+		//create the bounding box
+		var box = $player[0].getBoundingClientRect();
+		var origwidth = 34.0;
+		var origheight = 24.0;
 
-	   var boxwidth = origwidth - (Math.sin(Math.abs(rotation) / 90) * 8);
-	   var boxheight = (origheight + box.height) / 2;
-	   var boxleft = ((box.width - boxwidth) / 2) + box.left;
-	   var boxtop = ((box.height - boxheight) / 2) + box.top;
-	   var boxright = boxleft + boxwidth;
-	   var boxbottom = boxtop + boxheight;
+		var boxwidth = origwidth - (Math.sin(Math.abs(rotation) / 90) * 8);
+		var boxheight = (origheight + box.height) / 2;
+		var boxleft = ((box.width - boxwidth) / 2) + box.left;
+		var boxtop = ((box.height - boxheight) / 2) + box.top;
+		var boxright = boxleft + boxwidth;
+		var boxbottom = boxtop + boxheight;
 
-	   //if we're in debug mode, draw the bounding box
-	   if(debugmode) {
-		  var boundingbox = $("#playerbox");
-		  boundingbox.css('left', boxleft);
-		  boundingbox.css('top', boxtop);
-		  boundingbox.css('height', boxheight);
-		  boundingbox.css('width', boxwidth);
-	   }
+		//if we're in debug mode, draw the bounding box
+		if(debugmode) {
+			$playerBoundingBox.css({
+				'left': boxleft,
+				'top': boxtop,
+				'height': boxheight,
+				'width': boxwidth
+			});
+		}
 
-	   //did we hit the ground?
-	   if(box.bottom >= $("#land").offset().top) {
-	   	   $pub.trigger('collide');
-		  return;
-	   }
+		//did we hit the ground?
+		if(box.bottom >= $land.offset().top) return $pub.trigger('collide');
 
-	   //have they tried to escape through the ceiling? :o
-	   var ceiling = $("#ceiling");
-	   if(boxtop <= (ceiling.offset().top + ceiling.height()))
-		  position = 0;
+		//have they tried to escape through the ceiling? :o
+		if(boxtop <= ($ceiling.offset().top + $ceiling.height())) position = 0;
 
-	   //we can't go any further without a pipe
-	   if(pipes[0] == null)
-		  return;
+		//we can't go any further without a pipe
+		if(!pipes[0]) return;
 
-	   //determine the bounding box of the next pipes inner area
-	   var nextpipe = pipes[0];
-	   var nextpipeupper = nextpipe.children(".pipe_upper");
+		//determine the bounding box of the next pipes inner area
+		var $nextpipe = pipes[0];
+		var $nextpipeupper = $nextpipe.children('.pipe_upper');
 
-	   var pipetop = nextpipeupper.offset().top + nextpipeupper.height();
-	   var pipeleft = nextpipeupper.offset().left - 2; // for some reason it starts at the inner pipes offset, not the outer pipes.
-	   var piperight = pipeleft + pipewidth;
-	   var pipebottom = pipetop + pipeheight;
+		var pipetop = $nextpipeupper.offset().top + $nextpipeupper.height();
+		var pipeleft = $nextpipeupper.offset().left - 2; // for some reason it starts at the inner pipes offset, not the outer pipes.
+		var piperight = pipeleft + pipewidth;
+		var pipebottom = pipetop + pipeheight;
 
-	   if(debugmode)
-	   {
-		  var boundingbox = $("#pipebox");
-		  boundingbox.css('left', pipeleft);
-		  boundingbox.css('top', pipetop);
-		  boundingbox.css('height', pipeheight);
-		  boundingbox.css('width', pipewidth);
-	   }
+		if(debugmode) {
+			$pipeBoundingBox.css({
+				'left': pipeleft,
+				'top': pipetop,
+				'height': pipeheight,
+				'width': pipewidth
+			});
+		}
 
-	   //have we gotten inside the pipe yet?
-	   if(boxright > pipeleft) {
-		  //we're within the pipe, have we passed between upper and lower pipes?
-		  if(boxtop > pipetop && boxbottom < pipebottom) {
-			 //yeah! we're within bounds
+		//have we gotten inside the pipe yet?
+		if(boxright > pipeleft) {
+			//we're within the pipe, have we passed between upper and lower pipes?
+			if(boxtop > pipetop && boxbottom < pipebottom) {
+				//yeah! we're within bounds
 
-		  } else {
-			 //no! we touched the pipe
-			 $pub.trigger('collide');
-			 return;
-		  }
-	   }
+			} else {
+				//no! we touched the pipe
+				$pub.trigger('collide');
+				return;
+			}
+		}
 
 
-	   //have we passed the imminent danger?
-	   if(boxleft > piperight) {
-		  //yes, remove it
-		  pipes.splice(0, 1);
-
-		  //and score a point
-		  playerScore();
-	   }
+		//have we passed the imminent danger?
+		if(boxleft > piperight) {
+			//yes, remove it
+			pipes.splice(0, 1);
+			playerScore();
+		}
 	}
 
 	//Handle space bar
@@ -241,7 +213,7 @@ var floppy = (function(){
 		//space bar!
 		if(e.keyCode === 32) {
 			//in ScoreScreen, hitting space should click the "replay" button. else it's just a regular spacebar hit
-			if(currentstate == states.ScoreScreen) $replay.click();
+			if(currentstate === states.ScoreScreen) $replay.click();
 			else screenClick();
 		}
 	});
@@ -256,7 +228,6 @@ var floppy = (function(){
 
 	function playerJump() {
 		velocity = jump;
-		//play jump sound
 		soundJump.stop();
 		soundJump.play();
 	}
@@ -298,13 +269,6 @@ var floppy = (function(){
 
 	function showScore() {
 		$scoreboard.css("display", "block");
-		if(score > highscore) {
-			highscore = score;
-			setCookie("highscore", highscore, 999);
-		}
-
-		//update the scoreboard
-		var wonmedal = false;
 
 		//SWOOSH!
 		soundSwoosh.stop();
@@ -318,12 +282,6 @@ var floppy = (function(){
 			soundSwoosh.stop();
 			soundSwoosh.play();
 			$replay.transition({ y: '0px', opacity: 1}, 600, 'ease');
-
-			//also animate in the MEDAL! WOO!
-			if(wonmedal) {
-				$medal.css({ scale: 2, opacity: 0 });
-				$medal.transition({ opacity: 1, scale: 1 }, 1200, 'ease');
-			}
 		});
 
 		//make the replay button clickable
@@ -354,21 +312,24 @@ var floppy = (function(){
 
 	function playerScore() {
 		score += 1;
-		//play score sound
 		soundScore.stop();
 		soundScore.play();
 	}
 
-	function updatePipes() {
-		//Do any pipes need removal?
-		$(".pipe").filter(function() { return $(this).position().left <= -100; }).remove()
-
+	function addPipe() {
 		//add a new pipe (top height + bottom height  + pipeheight == 420) and put it in our tracker
 		var padding = 80;
 		var constraint = flyArea - pipeheight - (padding * 2); //double padding (for top and bottom)
 		var topheight = Math.floor((Math.random()*constraint) + padding); //add lower padding
 		var bottomheight = (flyArea - pipeheight) - topheight;
-		var newpipe = $('<div class="pipe animated"><div class="pipe_upper" style="height: ' + topheight + 'px;"></div><div class="pipe_lower" style="height: ' + bottomheight + 'px;"></div></div>');
+		return $('<div class="pipe animated"><div class="pipe_upper" style="height: ' + topheight + 'px;"></div><div class="pipe_lower" style="height: ' + bottomheight + 'px;"></div></div>');
+	}
+
+	function updatePipes() {
+		//Do any pipes need removal?
+		$(".pipe").filter(function() { return $(this).position().left <= -100; }).remove();
+
+		var newpipe = addPipe();
 		$flyArea.append(newpipe);
 		pipes.push(newpipe);
 	}

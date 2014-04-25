@@ -40,7 +40,7 @@ var floppy2048 = (function() {
 			}
 			return result;
 		};
-	};
+	}
 
 	function screenClick() {
 		floppy.screenClick();
@@ -50,7 +50,6 @@ var floppy2048 = (function() {
 		if(--states.lives === 0) {
 			floppy.playerDead();
 		}
-		console.log('removeLife');
 	}
 
 	function newGame() {

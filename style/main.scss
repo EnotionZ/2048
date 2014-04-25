@@ -12,7 +12,10 @@ $mobile-threshold: $field-width + 20px;
 $text-color: #776E65;
 $bright-text-color: #f9f6f2;
 
-$tile-font-size: 28px;
+$tile-font-size: 22px;
+$tile-font-size-3: 17px;
+$tile-font-size-4: 12px;
+
 $tile-color: #eee4da;
 $tile-gold-color: #edc22e;
 $tile-gold-glow-color: lighten($tile-gold-color, 15%);
@@ -384,18 +387,10 @@ hr {
 
       // Adjust font size for bigger numbers
       @if $power >= 100 and $power < 1000 {
-        font-size: 45px;
-
-        // Media queries placed here to avoid carrying over the rest of the logic
-        @include smaller($mobile-threshold) {
-          font-size: 25px;
-        }
+        font-size: $tile-font-size-3;
       } @else if $power >= 1000 {
-        font-size: 35px;
+        font-size: $tile-font-size-4;
 
-        @include smaller($mobile-threshold) {
-          font-size: 15px;
-        }
       }
     }
 

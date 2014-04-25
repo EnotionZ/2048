@@ -1,8 +1,8 @@
 @import "helpers";
 @import "fonts/clear-sans.css";
 
-$field-width: 50px;
-$grid-spacing: 15px;
+$field-width: 160px;
+$grid-spacing: 5px;
 $grid-row-cells: 4;
 $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
 $tile-border-radius: 3px;
@@ -12,6 +12,7 @@ $mobile-threshold: $field-width + 20px;
 $text-color: #776E65;
 $bright-text-color: #f9f6f2;
 
+$tile-font-size: 28px;
 $tile-color: #eee4da;
 $tile-gold-color: #edc22e;
 $tile-gold-glow-color: lighten($tile-gold-color, 15%);
@@ -39,7 +40,7 @@ body {
 }
 
 h1.title {
-  font-size: 80px;
+  font-size: 50px;
   font-weight: bold;
   margin: 0;
   display: block;
@@ -47,7 +48,7 @@ h1.title {
 }
 
 .container {
-	margin: 25px 20px;
+	padding: 20px 15px;
 }
 
 @include keyframes(move-up) {
@@ -63,19 +64,21 @@ h1.title {
 }
 
 .scores-container {
-  float: right;
-  text-align: right;
+	position: absolute;
+	top: 20px;
+	right: 20px;
 }
 
-.score-container, .best-container {
+.lives-container, .score-container, .best-container {
   $height: 25px;
 
   position: relative;
+  top: -12px;
   display: inline-block;
   background: $game-container-background;
   padding: 15px 25px;
   font-size: $height;
-  height: $height;
+  height: $height + 27px;
   line-height: $height + 22px;
   font-weight: bold;
   border-radius: 3px;
@@ -109,13 +112,9 @@ h1.title {
   }
 }
 
-.score-container:after {
-  content: "Score";
-}
-
-.best-container:after {
-  content: "Best"
-}
+.score-container:after { content: "Score"; }
+.best-container:after { content: "Best"; }
+.lives-container:after { content: "Lives"; }
 
 p {
   margin-top: 0;
@@ -321,7 +320,7 @@ hr {
     font-weight: bold;
     z-index: 10;
 
-    font-size: 55px;
+    font-size: $tile-font-size;
   }
 
   // Movement transition
@@ -448,10 +447,6 @@ hr {
   z-index: 20;
   @include animation(pop 200ms ease $transition-speed);
   @include animation-fill-mode(backwards);
-}
-
-.above-game {
-  @include clearfix;
 }
 
 .game-intro {

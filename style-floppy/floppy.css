@@ -1,7 +1,7 @@
 /*
    Copyright 2014 Nebez Briefkani
    floppybird - main.css
-   
+
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
@@ -130,8 +130,7 @@ body
    color: #fff;
 }
 
-#gamecontainer
-{
+#gamecontainer {
    position: relative;
    width: 100%;
    height: 100%;
@@ -141,70 +140,58 @@ body
 /*
 Screen - Game
 */
-#gamescreen
-{
-   position: absolute;
-   width: 100%;
-   height: 100%;
+#gamescreen {
+	position: absolute;
+	width: 100%;
+	top: 140px;
+	bottom: 0;
 }
 
-#sky
-{
+#header {
+	height: 100px;
+	box-sizing: border-box;
+}
+
+#sky {
+   position: relative;
+   height: 420px;
+   background-color: #4ec0ca;
+}
+
+#flyarea {
    position: absolute;
-   top: 0;
+   bottom: 0;
+   height: 100%;
    width: 100%;
-   height: 80%;
    background-image: url('../assets/sky.png');
    background-repeat: repeat-x;
    background-position: 0px 100%;
    background-color: #4ec0ca;
-   
+
    -webkit-animation: animSky 7s linear infinite;
    animation: animSky 7s linear infinite;
 }
 
-#flyarea
-{
-   position: absolute;
-   bottom: 0;
-   height: 80%;
-   width: 100%;
-}
-
-#ceiling
-{
+#ceiling {
    position: absolute;
    top: -16px;
    height: 16px;
    width: 100%;
    background-image: url('../assets/ceiling.png');
    background-repeat: repeat-x;
-   
+
    -webkit-animation: animCeiling 481ms linear infinite;
    animation: animCeiling 481ms linear infinite;
 }
 
-#land
-{
-   position: absolute;
-   bottom: 0;
-   width: 100%;
-   height: 20%;
+#land {
    background-image: url('../assets/land.png');
    background-repeat: repeat-x;
    background-position: 0px 0px;
    background-color: #ded895;
-   
+
    -webkit-animation: animLand 2516ms linear infinite;
    animation: animLand 2516ms linear infinite;
-}
-
-#bigscore
-{
-   position: absolute;
-   top: 20px;
-   left: 150px;
-   z-index: 100;
 }
 
 #bigscore img
@@ -213,30 +200,30 @@ Screen - Game
    padding: 1px;
 }
 
-#splash
-{
+#splash {
    position: absolute;
    opacity: 0;
    top: 75px;
-   left: 65px;
+   left: 50%;
    width: 188px;
+   margin-left: -94px;
    height: 170px;
    background-image: url('../assets/splash.png');
    background-repeat: no-repeat;
 }
 
-#scoreboard
-{
+#scoreboard {
    position: absolute;
    display: none;
    opacity: 0;
    top: 64px;
-   left: 43px;
+   left: 50%;
+   margin-left: -118px;
    width: 236px;
    height: 280px;
    background-image: url('../assets/scoreboard.png');
    background-repeat: no-repeat;
-   
+
    z-index: 1000;
 }
 
@@ -302,19 +289,18 @@ Screen - Game
    border: 1px solid red;
 }
 
-#player
-{
+#player {
+	z-index: 100;
    left: 60px;
    top: 200px;
 }
 
-.bird
-{
+.bird {
    position: absolute;
    width: 34px;
    height: 24px;
    background-image: url('../assets/bird.png');
-   
+
    -webkit-animation: animBird 300ms steps(4) infinite;
    animation: animBird 300ms steps(4) infinite;
 }
@@ -327,7 +313,7 @@ Screen - Game
    width: 52px;
    height: 100%;
    z-index: 10;
-   
+
    -webkit-animation: animPipe 7500ms linear;
    animation: animPipe 7500ms linear;
 }
@@ -390,3 +376,9 @@ Screen - Game
    text-decoration: none;
    color: #fff;
 }
+
+
+
+
+.cf:before, .cf:after { content: " "; display: table; }
+.cf:after { clear: both; }

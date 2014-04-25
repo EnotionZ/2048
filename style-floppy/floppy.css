@@ -192,6 +192,7 @@ Screen - Game
 
    -webkit-animation: animLand 2516ms linear infinite;
    animation: animLand 2516ms linear infinite;
+   padding-top: 20px;
 }
 
 #bigscore img

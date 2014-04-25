@@ -16,8 +16,7 @@ h1.title {
   font-size: 50px;
   font-weight: bold;
   margin: 0;
-  display: block;
-  float: left; }
+  display: block; }
 
 .container {
   padding: 20px 15px; }

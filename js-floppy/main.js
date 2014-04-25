@@ -49,7 +49,12 @@ var floppy = (function(){
 
 	var score = 0;
 
-	var pipeheight = 200;
+	var modes = {
+		easy: 320,
+		normal: 250,
+		hard: 180
+	};
+	var pipeheight = 250;
 	var pipewidth = 52;
 	var pipes = [];
 
@@ -313,6 +318,8 @@ var floppy = (function(){
 		pipes.push(newpipe);
 	}
 
+	function setDifficulty(val) { pipeheight = modes[val]; }
+
 	var isIncompatible = {
 		Android: function() { return navigator.userAgent.match(/Android/i); },
 		BlackBerry: function() { return navigator.userAgent.match(/BlackBerry/i); },
@@ -330,6 +337,7 @@ var floppy = (function(){
 	pub.on = $pub.on.bind($pub);
 	pub.soundHit = soundHit;
 	pub.soundDie = soundDie;
+	pub.setDifficulty = setDifficulty;
 
 	return pub;
 })();

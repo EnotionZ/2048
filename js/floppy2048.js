@@ -1,7 +1,8 @@
 /*global floppy,manager*/
 var floppy2048 = (function() {
 	var opts = {
-		start_lives: 3
+		start_lives: 3,
+		mode: 'normal'
 	};
 
 	var states = {
@@ -63,6 +64,7 @@ var floppy2048 = (function() {
 		states.lives = opts.start_lives;
 		updateLives();
 		manager.restart();
+		floppy.setDifficulty(opts.mode);
 		floppy.replay();
 	}
 

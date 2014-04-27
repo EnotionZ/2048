@@ -33,7 +33,6 @@
 
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 
@@ -56,21 +55,22 @@
 	<div id="gamecontainer">
 		<div id="header" class="container">
 			<div class="heading">
-				<h1 class="title">Floppy 2048</h1>
-				<p class="game-intro">Join the numbers and get to the <strong>2048 tile</strong> while flapping your wings</p>
+				<h1 class="title">
+					Floppy 2048
+				</h1>
 				<div class="scores-container">
 					<div>
-						<div class="lives-container">0</div>
+						<a class="restart-button">New Game</a>
 						<div class="score-container">0</div>
 						<div class="best-container">0</div>
 					</div>
-					<a class="restart-button">New Game</a>
 				</div>
 			</div>
 		</div>
 		<div id="gamescreen">
             <div id="sky" class="animated">
                <div id="flyarea">
+				   <div class="lives-container">0</div>
                   <div id="ceiling" class="animated"></div>
                   <!-- This is the flying and pipe area container -->
 

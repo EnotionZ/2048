@@ -75,7 +75,7 @@ var floppy2048 = (function() {
 		removeLife();
 	};
 
-	floppy.on('collide', throttle(removeLife, 1000, {trailing: false}));
+	floppy.on('collide', throttle(removeLife, 1500, {trailing: false}));
 
 
 	//Handle mouse down OR touch start

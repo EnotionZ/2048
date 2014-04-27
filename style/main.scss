@@ -50,7 +50,7 @@ h1.title {
 }
 
 .container {
-	padding: 20px 15px;
+	padding: 15px;
 }
 
 @include keyframes(move-up) {
@@ -115,7 +115,13 @@ h1.title {
 }
 
 .lives-container {
-  background: #888;
+  background: #C07000;
+  border: 1px solid #000;
+  position: absolute;
+  z-index: 11;
+  border-radius: 0;
+  top: -6px;
+  left: 2px;
 }
 
 .score-container:after { content: "Score"; }
@@ -455,7 +461,7 @@ hr {
 
 .restart-button {
   @include button;
-  display: block;
+  display: none;
   text-align: center;
   float: right;
 }

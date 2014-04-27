@@ -19,7 +19,7 @@ h1.title {
   display: block; }
 
 .container {
-  padding: 20px 15px; }
+  padding: 15px; }
 
 @-webkit-keyframes move-up {
   0% {
@@ -94,7 +94,13 @@ h1.title {
     animation-fill-mode: both; }
 
 .lives-container {
-  background: #888; }
+  background: #C07000;
+  border: 1px solid #000;
+  position: absolute;
+  z-index: 11;
+  border-radius: 0;
+  top: -6px;
+  left: 2px; }
 
 .score-container:after {
   content: "Score"; }
@@ -490,7 +496,7 @@ hr {
   color: #f9f6f2;
   height: 40px;
   line-height: 42px;
-  display: block;
+  display: none;
   text-align: center;
   float: right; }
 

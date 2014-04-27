@@ -141,20 +141,16 @@ body
 Screen - Game
 */
 #gamescreen {
-	position: absolute;
-	width: 100%;
-	top: 140px;
-	bottom: 0;
 }
 
 #header {
-	height: 100px;
 	box-sizing: border-box;
+	margin-bottom: 16px;
 }
 
 #sky {
    position: relative;
-   height: 520px;
+   height: 560px;
    background-color: #4ec0ca;
 }
 

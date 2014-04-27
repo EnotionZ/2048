@@ -286,8 +286,7 @@ Screen - Game
    cursor: pointer;
 }
 
-.boundingbox
-{
+.boundingbox {
    position: absolute;
    display: none;
    top: 0;
@@ -296,6 +295,12 @@ Screen - Game
    height: 0;
    border: 1px solid red;
    z-index: 101;
+}
+
+.bbcollision {
+	border-color: yellow;
+	outline: 1px solid #000;
+	background: rgba(0,0,0,.4);
 }
 
 #player {
@@ -314,8 +319,7 @@ Screen - Game
    animation: animBird 300ms steps(4) infinite;
 }
 
-.pipe
-{
+.pipe {
    position: absolute;
    top: 0;
    left: -100px;
@@ -327,8 +331,7 @@ Screen - Game
    animation: animPipe 7500ms linear;
 }
 
-.pipe_upper
-{
+.pipe_upper {
    position: absolute;
    top: 0;
    width: 52px;
@@ -337,8 +340,7 @@ Screen - Game
    background-position: center;
 }
 
-.pipe_upper:after
-{
+.pipe_upper:after {
    content: "";
    position: absolute;
    bottom: 0;
@@ -347,8 +349,7 @@ Screen - Game
    background-image: url('../assets/pipe-down.png');
 }
 
-.pipe_lower
-{
+.pipe_lower {
    position: absolute;
    bottom: 0;
    width: 52px;
@@ -357,8 +358,7 @@ Screen - Game
    background-position: center;
 }
 
-.pipe_lower:after
-{
+.pipe_lower:after {
    content: "";
    position: absolute;
    top: 0;
@@ -367,8 +367,7 @@ Screen - Game
    background-image: url('../assets/pipe-up.png');
 }
 
-#footer
-{
+#footer {
    position: absolute;
    bottom: 3px;
    left: 3px;

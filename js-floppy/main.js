@@ -21,6 +21,8 @@ var floppy = (function(){
 
 	var $playerBoundingBox = $('#playerbox');
 	var $pipeBoundingBox = $('#pipebox');
+	var $playerCollision = $('#playerbox-collision');
+	var $pipeCollision = $('#pipebox-collision');
 	var $player = $('#player');
 	var $flyArea = $('#flyarea');
 	var $scoreboard = $('#scoreboard');
@@ -64,6 +66,8 @@ var floppy = (function(){
 	var pipewidth = 52;
 	var pipes = [];
 
+	var updaterate = 1000.0 / 60.0; //60 times a second
+	var collisionPositionUpdate = '-=' + (1000/7500*updaterate);
 
 	//sounds
 	var volume = 30;
@@ -123,7 +127,6 @@ var floppy = (function(){
 		if(debugmode) $(".boundingbox").show();
 
 		//start up our loops
-		var updaterate = 1000.0 / 60.0 ; //60 times a second
 		loopGameloop = setInterval(gameloop, updaterate);
 		loopPipeloop = setInterval(updatePipes, pipeLoopTimer);
 
@@ -185,6 +188,8 @@ var floppy = (function(){
 				'height': pipeheight,
 				'width': pipewidth
 			});
+			$playerCollision.css('left', collisionPositionUpdate);
+			$pipeCollision.css('left', collisionPositionUpdate);
 		}
 
 		//have we gotten inside the pipe yet?
@@ -196,7 +201,20 @@ var floppy = (function(){
 			} else {
 				//no! we touched the pipe
 				$pub.trigger('collide');
-				return;
+				if(debugmode) {
+					$playerCollision.css({
+						'left': boxleft,
+						'top': boxtop,
+						'height': boxheight,
+						'width': boxwidth
+					});
+					$pipeCollision.css({
+						'left': pipeleft,
+						'top': pipetop,
+						'height': pipeheight,
+						'width': pipewidth
+					});
+				}
 			}
 		}
 

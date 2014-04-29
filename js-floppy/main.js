@@ -65,6 +65,7 @@ var floppy = (function(){
 	var pipeLoopTimer = 2300;      // timer it takes to generate another pipe
 	var pipewidth = 52;
 	var pipes = [];
+	var preventFall = false;       // stops player from falling
 
 	var updaterate = 1000.0 / 60.0; //60 times a second
 	var collisionPositionUpdate = '-=' + (1000/7500*updaterate);
@@ -119,6 +120,7 @@ var floppy = (function(){
 	}
 
 	function startGame() {
+		preventFall = false;
 		currentstate = states.GameScreen;
 
 		//fade out the splash
@@ -144,6 +146,7 @@ var floppy = (function(){
 	function gameloop() {
 		//update the player speed/position
 		velocity += gravity;
+		if(preventFall && velocity > 0) velocity = 0;
 		position += velocity;
 
 		//update the player
@@ -161,7 +164,10 @@ var floppy = (function(){
 
 		//did we hit the ground?
 		if(box.bottom >= landTop) {
+			preventFall = true;
 			return $pub.trigger('collide');
+		} else {
+			preventFall = false;
 		}
 
 		//have they tried to escape through the ceiling? :o

@@ -80,7 +80,6 @@ var floppy2048 = (function() {
 	}
 	function stopGameTimer() {
 		clearInterval(gameTimer);
-		$timeContainer.html(0);
 	};
 
 	// when game manager signals a gameover

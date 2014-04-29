@@ -53,64 +53,6 @@ h1.title {
   top: 20px;
   right: 20px; }
 
-.lives-container, .score-container, .best-container {
-  position: relative;
-  top: -12px;
-  display: inline-block;
-  background: #bbada0;
-  padding: 15px 25px;
-  font-size: 25px;
-  height: 52px;
-  line-height: 47px;
-  font-weight: bold;
-  border-radius: 3px;
-  color: white;
-  margin-top: 8px;
-  text-align: center; }
-  .lives-container:after, .score-container:after, .best-container:after {
-    position: absolute;
-    width: 100%;
-    top: 10px;
-    left: 0;
-    text-transform: uppercase;
-    font-size: 13px;
-    line-height: 13px;
-    text-align: center;
-    color: #eee4da; }
-  .lives-container .score-addition, .score-container .score-addition, .best-container .score-addition {
-    position: absolute;
-    right: 30px;
-    color: red;
-    font-size: 25px;
-    line-height: 25px;
-    font-weight: bold;
-    color: rgba(119, 110, 101, 0.9);
-    z-index: 100;
-    -webkit-animation: move-up 600ms ease-in;
-    -moz-animation: move-up 600ms ease-in;
-    animation: move-up 600ms ease-in;
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    animation-fill-mode: both; }
-
-.lives-container {
-  background: #C07000;
-  border: 1px solid #000;
-  position: absolute;
-  z-index: 11;
-  border-radius: 0;
-  top: -6px;
-  left: 2px; }
-
-.score-container:after {
-  content: "Score"; }
-
-.best-container:after {
-  content: "Best"; }
-
-.lives-container:after {
-  content: "Lives"; }
-
 p {
   margin-top: 0;
   margin-bottom: 10px;
@@ -514,11 +456,6 @@ hr {
   h1.title {
     font-size: 27px;
     margin-top: 15px; }
-
-  .score-container, .best-container {
-    margin-top: 0;
-    padding: 15px 10px;
-    min-width: 40px; }
 
   .heading {
     margin-bottom: 10px; }

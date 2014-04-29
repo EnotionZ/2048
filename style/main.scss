@@ -71,63 +71,6 @@ h1.title {
 	right: 20px;
 }
 
-.lives-container, .score-container, .best-container {
-  $height: 25px;
-
-  position: relative;
-  top: -12px;
-  display: inline-block;
-  background: $game-container-background;
-  padding: 15px 25px;
-  font-size: $height;
-  height: $height + 27px;
-  line-height: $height + 22px;
-  font-weight: bold;
-  border-radius: 3px;
-  color: white;
-  margin-top: 8px;
-  text-align: center;
-
-  &:after {
-    position: absolute;
-    width: 100%;
-    top: 10px;
-    left: 0;
-    text-transform: uppercase;
-    font-size: 13px;
-    line-height: 13px;
-    text-align: center;
-    color: $tile-color;
-  }
-
-  .score-addition {
-    position: absolute;
-    right: 30px;
-    color: red;
-    font-size: $height;
-    line-height: $height;
-    font-weight: bold;
-    color: rgba($text-color, .9);
-    z-index: 100;
-    @include animation(move-up 600ms ease-in);
-    @include animation-fill-mode(both);
-  }
-}
-
-.lives-container {
-  background: #C07000;
-  border: 1px solid #000;
-  position: absolute;
-  z-index: 11;
-  border-radius: 0;
-  top: -6px;
-  left: 2px;
-}
-
-.score-container:after { content: "Score"; }
-.best-container:after { content: "Best"; }
-.lives-container:after { content: "Lives"; }
-
 p {
   margin-top: 0;
   margin-bottom: 10px;
@@ -493,11 +436,6 @@ hr {
     margin-top: 15px;
   }
 
-  .score-container, .best-container {
-    margin-top: 0;
-    padding: 15px 10px;
-    min-width: 40px;
-  }
 
   .heading {
     margin-bottom: 10px;

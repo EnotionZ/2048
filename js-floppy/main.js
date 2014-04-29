@@ -130,6 +130,8 @@ var floppy = (function(){
 		loopGameloop = setInterval(gameloop, updaterate);
 		loopPipeloop = setInterval(updatePipes, pipeLoopTimer);
 
+		$pub.trigger('start');
+
 		//jump from the start!
 		playerJump();
 	}
@@ -279,6 +281,8 @@ var floppy = (function(){
 			});
 		}
 		setTimeout(function() { if(!disableScore && !hasShownScoreScreen) showScore(); }, 2000);
+
+		$pub.trigger('dead');
 	}
 
 	function showScore() {

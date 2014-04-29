@@ -69,6 +69,20 @@ var floppy2048 = (function() {
 		floppy.replay();
 	}
 
+	var gameTimer;
+	var $timeContainer = $('.time-container');
+	function startGameTimer() {
+		var startTime = 0;
+		gameTimer = setInterval(function() {
+			startTime++;
+			$timeContainer.html(startTime);
+		}, 1000);
+	}
+	function stopGameTimer() {
+		clearInterval(gameTimer);
+		$timeContainer.html(0);
+	};
+
 	// when game manager signals a gameover
 	GameManager.prototype.onOver = function() {
 		states.lives = 1;
@@ -76,6 +90,8 @@ var floppy2048 = (function() {
 	};
 
 	floppy.on('collide', throttle(removeLife, 1500, {trailing: false}));
+	floppy.on('start', startGameTimer);
+	floppy.on('dead', stopGameTimer);
 
 
 	//Handle mouse down OR touch start

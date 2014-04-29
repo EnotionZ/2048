@@ -18,7 +18,7 @@
 -->
 <head>
   <meta charset="utf-8">
-  <title>Floppy 2048</title>
+  <title>Flappy 2048</title>
 
   <link href="style-floppy/reset.css" rel="stylesheet">
   <link href="style-floppy/floppy.css" rel="stylesheet">
@@ -59,18 +59,25 @@
 					Floppy 2048
 				</h1>
 				<div class="scores-container">
-					<div>
-						<a class="restart-button">New Game</a>
-						<div class="score-container">0</div>
-						<div class="best-container">0</div>
-					</div>
+					<div><a class="restart-button">New Game</a></div>
 				</div>
 			</div>
 		</div>
 		<div id="gamescreen">
             <div id="sky" class="animated">
                <div id="flyarea">
-				   <div class="lives-container">0</div>
+				   <table class="statusbar">
+					   <tr>
+						   <td>Lives</td>
+						   <td>Score</td>
+						   <td>Best</td>
+						   <td>Time</td></tr>
+					   <tr>
+						   <td class="lives-container">0</td>
+						   <td class="score-container">0</td>
+						   <td class="best-container">0</td>
+						   <td class="time-container">0</td></tr>
+				   </table>
                   <div id="ceiling" class="animated"></div>
                   <!-- This is the flying and pipe area container -->
 
@@ -145,6 +152,8 @@
 							<li>Score is based on tile movement, not pipe clearing</li>
 							<li>You have 3 lives which decrements when colliding with pipe or hitting the ground</li>
 						</ul>
+						<h4>Note:</h4>
+						<p>Tested on Firefox and Chrome on desktop, not compatible with mobile devices</p>
 					</div>
 					<p>
 					Created by <a href="http://dph.am">Dominick Pham</a>, based on code from <a href="http://git.io/2048">2048</a> and <a href="http://nebez.github.io/floppybird/">Floppy Bird</a>. <a href="https://github.com/EnotionZ/2048">Source on Github</a></p>
